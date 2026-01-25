@@ -118,8 +118,8 @@ Minimum duration in seconds for suite run (overrides `iter`).
 Define a fixed seed to keep runs reproducible when your benchmark functions use
 `rand`. The seed will be passed to `srand` before each call to a benchmark
 function. Set to 0 to skip rand seeding.
-- `no_pass` (Bool; default 0):
-Do check for Pass/Fail even if reference output is defined.
+- `no_check` (Bool; default 0):
+Do not check for Pass/Fail even if reference output is defined.
 - `no_mce` (Bool; default 0):
 Do not run under [MCE::Loop](https://metacpan.org/pod/MCE%3A%3ALoop) (sets `threads=1`, `scale=1`).
 
@@ -144,14 +144,17 @@ The result hash return looks like this:
 
 ## `suite_calc`
 
-    my ($stats, $stats_multi, $scal) = suite_calc(\%suite_run_options, , $keep_outliers?);
+    my ($stats, $stats_multi, $scal) = suite_calc(\%suite_run_options, $keep_outliers?);
 
-Convenience function that combines 3 calls, [suite\_run](https://metacpan.org/pod/suite_run) with `threads=>1`,
-[suite\_run](https://metacpan.org/pod/suite_run) with `threads=>system_identity(1)` and [calc\_scalability](https://metacpan.org/pod/calc_scalability) with
+Convenience function that combines 3 calls, ["suite\_run"](#suite_run) with `threads=>1`,
+["suite\_run"](#suite_run) with `threads=>system_identity(1)` and ["calc\_scalability"](#calc_scalability) with
 the results of those two, returning hashrefs with the results of all three calls.
 
 For single-core systems (or when `system_identity(1)` does not return > 1)
 only `$stats` will be returned.
+
+You can override the `system_identity(1)` call and run the multi-thread bench with
+a custom number of threads by passing `threads => [count]`.
 
 # BENCHMARK FUNCTIONS
 
