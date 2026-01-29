@@ -69,7 +69,7 @@ to return the same times, double the scores.
 
 ### Options:
 
-- `bench` (HashRef) **required**:
+- `bench` (HashRef, with alias `benchmarks`) **required**:
 A hashref with keys being your unique custom benchmark names and values being
 arrays:
 
@@ -100,6 +100,9 @@ Number of suite iterations (with min/max/avg at the end when > 1).
 Only run benchmarks whose names match regex.
 - `exclude` (Regex):
 Skip benchmarks whose names match regex.
+- `filter` (CodeRef):
+Custom filter callback for finer control. It receives `($opt, $bench, $bench_def)`
+and should return true to run a benchmark.
 - `time` (Bool):
 Report time (sec) instead of score. Set to true by `quick` or if at least one
 benchmark has no reference time declared. Otherwise score output is the default.
@@ -223,8 +226,7 @@ Please report any bugs or feature requests on [GitHub](https://github.com/SpareR
 
 # LICENSE AND COPYRIGHT
 
-Copyright (c) 2021-2025 Dimitrios Kechagias.
-Copyright (c) 2025 SpareRoom.
+Copyright (c) 2025-2026 Dimitrios Kechagias and SpareRoom.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
